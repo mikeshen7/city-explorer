@@ -1,7 +1,7 @@
 # Project Name
 
-**Author**: Your Name Goes Here
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Author**: Mike Shen
+**Version**: 1.06.01 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
 
@@ -16,6 +16,7 @@ Update .env with API key from locationiq.com
 ## Architecture
 
 [City Explorer wireframe](https://mikeshen926191.invisionapp.com/freehand/City-Explorer-B9WqVm3pC)
+[Trello board](https://trello.com/b/ivgyoLuB/module-2-city-explorer)
 Using ReactJS framework.
 Uses Axios library
 Uses LocationIQ API
@@ -34,6 +35,7 @@ Uses LocationIQ API
 
 2023-01-16 9:30AM initial setup of site
 2023-01-16 1:00PM added location API call
+2023-01-16 2:45PM v1.06.01 final commit for lab 06.
 
 ## Credit and Collaborations
 
