@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Project Name
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Author**: Your Name Goes Here
+**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+Provide a site where users can get information about a city.
+User enters in a city and state.
+Site outputs a map showing the location, plus the lattitude and longitude
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Update .env with API key from locationiq.com
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Architecture
 
-### `npm test`
+[City Explorer wireframe](https://mikeshen926191.invisionapp.com/freehand/City-Explorer-B9WqVm3pC)
+Using ReactJS framework.
+Uses Axios library
+Uses LocationIQ API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Color Palette
 
-### `npm run build`
+``` html
+<color name='UI/UX-1' rgb='586F8C' r='88' g='110' b='140' />
+<color name='UI/UX-2' rgb='495B73' r='73' g='91' b='114' />
+<color name='UI/UX-3' rgb='262625' r='38' g='38' b='37' />
+<color name='UI/UX-4' rgb='A6A6A6' r='165' g='165' b='165' />
+<color name='UI/UX-5' rgb='F2F2F2' r='242' g='242' b='242' />
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Change Log
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2023-01-16 9:30AM initial setup of site
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Credit and Collaborations
 
-### `npm run eject`
+[Color Palette](https://color.adobe.com/trends)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Time Estimates
+For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Name of feature: Locations: for a given city, find latitude and longitude
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Estimate of time needed to complete: _____
 
-## Learn More
+Start time: _____
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Finish time: _____
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Actual time needed to complete: _____
 
-### Code Splitting
+BLANK TEMPLATE
+Name of feature: ________________________________
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Estimate of time needed to complete: _____
 
-### Analyzing the Bundle Size
+Start time: _____
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Finish time: _____
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Actual time needed to complete: _____
