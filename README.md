@@ -63,13 +63,12 @@ Finish time: 2:12
 
 Actual time needed to complete: 1 hr 7 min
 
-BLANK TEMPLATE
-Name of feature: ________________________________
+## Name of feature: Errors
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 2:15PM
 
-Finish time: _____
+Finish time: 2:31PM
 
-Actual time needed to complete: _____
+Actual time needed to complete: 16 min

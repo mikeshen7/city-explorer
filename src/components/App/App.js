@@ -12,12 +12,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       siteName: "City Explorer",
-      city: 'Placeholder',
-      state: 'Placeholder',
+      city: '',
+      state: '',
       cityData: [],
-      display_name: 'Placeholder',
-      lattitude: 'Placeholder',
-      longitude: 'Placeholder',
+      display_name: '',
+      lattitude: '',
+      longitude: '',
       mapURL: 'https://maps.locationiq.com/v3/staticmap?key=pk.8b1012025f731bfa74f9de021af21e10&center=47.6038321,-122.330062&zoom=13',
       cardDisplay: 'none',
       error: false,
@@ -40,22 +40,28 @@ class App extends React.Component {
   handleCityData = async (event) => {
     event.preventDefault();
 
-    // API call to get location data
-    let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&limit=1&format=json&city=${this.state.city}&state=${this.state.state}`
-    let locationData = await axios.get(url)
+    try {
+      // API call to get location data
+      let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&limit=1&format=json&city=${this.state.city}&state=${this.state.state}`
+      let locationData = await axios.get(url)
 
-
-
-    // Save data to state
-    this.setState({
-      cityData: locationData.data[0],
-      display_name: locationData.data[0].display_name,
-      lattitude: locationData.data[0].lat,
-      longitude: locationData.data[0].lon,
-      mapURL: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${locationData.data[0].lat},${locationData.data[0].lon}&zoom=13`,
-      cardDisplay: 'flex',
-    })
-
+      // Save data to state
+      this.setState({
+        cityData: locationData.data[0],
+        display_name: locationData.data[0].display_name,
+        lattitude: locationData.data[0].lat,
+        longitude: locationData.data[0].lon,
+        mapURL: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${locationData.data[0].lat},${locationData.data[0].lon}&zoom=13`,
+        cardDisplay: 'flex',
+        error: false,
+      })
+    } catch (error) {
+      this.setState({
+        error: true,
+        errorMessage: error.message,
+        cardDisplay: 'none'
+      })
+    }
   }
 
   render() {
@@ -77,7 +83,14 @@ class App extends React.Component {
             </Form.Group>
 
             <Button onClick={this.handleCityData} variant="primary">Explore!</Button>
+            {
+              this.state.error
+                ? <h2>{this.state.errorMessage}</h2>
+                : null
+            }
           </Form>
+
+
 
           <Card style={{ display: this.state.cardDisplay }} bg='secondary' text='light'>
             <Card.Body>
@@ -85,7 +98,7 @@ class App extends React.Component {
               <Card.Text> Longitude: {this.state.lattitude}</Card.Text>
               <Card.Text>Latitude: {this.state.longitude}</Card.Text>
             </Card.Body>
-            <Card.Img variant="bottom" src={this.state.mapURL}/>
+            <Card.Img variant="bottom" src={this.state.mapURL} />
           </Card>
         </main>
       </>
