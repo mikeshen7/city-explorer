@@ -1,20 +1,33 @@
 header {
-  border: 1px solid black;
   width: 100%;
-  position: fixed;
-  background-color: gray;
-}
-
-nav {
-  border:1px solid black;
-  width: 200px;
-  background-color: gray;
+  background-color: #586F8C;
 }
 
 header h1 {
-  border:1px solid black;
   width: 100%;
   text-align: center;
-  background-color: gray;
+  background-color: #586F8C;
   font-size: 3vw;;
+  padding: 5px;
+}
+
+h2,h3,h4,h5 {
+  height: 20px;
+  text-align: center;
+}
+
+h2 {
+  background-color: #495B73;
+}
+
+h3 {
+  background-color: #262625;
+}
+
+h4 {
+  background-color: #A6A6A6;
+}
+
+h5 {
+  background-color: #F2F2F2;
 }

@@ -23,11 +23,11 @@ Uses LocationIQ API
 ### Color Palette
 
 ``` html
-<color name='UI/UX-1' rgb='586F8C' r='88' g='110' b='140' />
-<color name='UI/UX-2' rgb='495B73' r='73' g='91' b='114' />
+<color name='UI/UX-1' rgb='586F8C' r='88' g='110' b='140' />  Use for header
+<color name='UI/UX-2' rgb='495B73' r='73' g='91' b='114' />  Use for main background color
 <color name='UI/UX-3' rgb='262625' r='38' g='38' b='37' />
-<color name='UI/UX-4' rgb='A6A6A6' r='165' g='165' b='165' />
-<color name='UI/UX-5' rgb='F2F2F2' r='242' g='242' b='242' />
+<color name='UI/UX-4' rgb='A6A6A6' r='165' g='165' b='165' /> Use for alt text
+<color name='UI/UX-5' rgb='F2F2F2' r='242' g='242' b='242' /> Use for text
 ```
 
 ## Change Log
@@ -39,10 +39,9 @@ Uses LocationIQ API
 
 [Color Palette](https://color.adobe.com/trends)
 
-
 ## Time Estimates
-For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
+For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
 ### Name of feature: Locations: for a given city, find latitude and longitude
 
@@ -54,19 +53,15 @@ Finish time: 1:00
 
 Actual time needed to complete: 60 minutes
 
-### Name of feature: ________________________________
+### Name of feature: Map
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1 hr
 
-Start time: _____
+Start time: 1:05PM
 
-Finish time: _____
+Finish time: 2:12
 
-Actual time needed to complete: _____
-
-
-
-
+Actual time needed to complete: 1 hr 7 min
 
 BLANK TEMPLATE
 Name of feature: ________________________________
