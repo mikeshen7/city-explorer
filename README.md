@@ -39,10 +39,21 @@ Uses LocationIQ API
 [Color Palette](https://color.adobe.com/trends)
 
 
-Time Estimates
+## Time Estimates
 For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
-Name of feature: Locations: for a given city, find latitude and longitude
+
+### Name of feature: Locations: for a given city, find latitude and longitude
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 12:00
+
+Finish time: 12:30
+
+Actual time needed to complete: 30 minutes
+
+### Name of feature: ________________________________
 
 Estimate of time needed to complete: _____
 
@@ -51,6 +62,10 @@ Start time: _____
 Finish time: _____
 
 Actual time needed to complete: _____
+
+
+
+
 
 BLANK TEMPLATE
 Name of feature: ________________________________

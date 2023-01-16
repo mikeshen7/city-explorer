@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-// import Header from '../Header/Header';
 import axios from 'axios';
-// import { eventWrapper } from '@testing-library/user-event/dist/utils';
-
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,24 +35,17 @@ class App extends React.Component {
 
   handleCityData = async (event) => {
     event.preventDefault();
-    console.log(event.target);
-
-    // save form data of city and state
-    this.setState({
-      city: event.target.elements.city.value,
-      state: event.target.elements.state.value,
-    })
 
     // API call to get location data
     let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&limit=1&format=json&city=${this.state.city}&state=${this.state.state}`
-
     let locationData = await axios.get(url)
 
+    // Save data to state
     this.setState({
       cityData: locationData.data[0],
       display_name: locationData.data[0].display_name,
       lattitude: locationData.data[0].lat,
-      longitude:  locationData.data[0].lon,
+      longitude: locationData.data[0].lon,
     })
 
   }
@@ -66,19 +57,23 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleCityData}>
-          <label htmlFor="city">City</label>
-          <input id="city" type="text" onInput={this.handleCityInput}></input>
-          <label htmlFor="state">State</label>
-          <input id="state" type="text" onInput={this.handleStateInput}></input>
-          <button type='submit'>Explore</button>
-        </form>
+        <Form onSubmit={this.handleCityData}>
+          <Form.Group controlId="city">
+            <Form.Label>City</Form.Label>
+            <Form.Control type="text" placeholder="Enter city" onInput={this.handleCityInput} />
+          </Form.Group>
 
-        <h2>{this.state.display_name}</h2>
-        <h2>{this.state.city}</h2>
-        <h2>{this.state.state}</h2>
-        <h2>{this.state.lattitude}</h2>
-        <h2>{this.state.longitude}</h2>
+          <Form.Group controlId="state">
+            <Form.Label>State</Form.Label>
+            <Form.Control type="text" placeholder="Enter state" onInput={this.handleStateInput}/>
+          </Form.Group>
+
+          <Button onClick={this.handleCityData} variant="primary">Explore!</Button>
+        </Form>
+
+        <h2>Location: {this.state.display_name}</h2>
+        <h2>Longitude: {this.state.lattitude}</h2>
+        <h2>Latitude: {this.state.longitude}</h2>
       </>
     );
   }
