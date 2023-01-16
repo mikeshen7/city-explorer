@@ -33,6 +33,7 @@ Uses LocationIQ API
 ## Change Log
 
 2023-01-16 9:30AM initial setup of site
+2023-01-16 1:00PM added location API call
 
 ## Credit and Collaborations
 
@@ -49,9 +50,9 @@ Estimate of time needed to complete: 1 hour
 
 Start time: 12:00
 
-Finish time: 12:30
+Finish time: 1:00
 
-Actual time needed to complete: 30 minutes
+Actual time needed to complete: 60 minutes
 
 ### Name of feature: ________________________________
 
