@@ -5,7 +5,8 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import Header from '../Header/Header'
+import Header from '../Header/Header';
+import Weather from '../Weather/Weather';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,13 +14,19 @@ class App extends React.Component {
     this.state = {
       siteName: "City Explorer",
       city: '',
-      state: '',
       cityData: [],
       display_name: '',
       lattitude: '',
       longitude: '',
-      mapURL: 'https://maps.locationiq.com/v3/staticmap?key=pk.8b1012025f731bfa74f9de021af21e10&center=47.6038321,-122.330062&zoom=13',
+      mapURL: '',
       cardDisplay: 'none',
+
+      weatherData0: '',
+      weatherData1: '',
+      weatherData2: '',
+      weatherDataValid: false,
+      weatherErrorMessage: '',
+
       error: false,
       errorMessage: '',
     }
@@ -31,18 +38,12 @@ class App extends React.Component {
     })
   }
 
-  handleStateInput = (event) => {
-    this.setState({
-      state: event.target.value,
-    })
-  }
-
   handleCityData = async (event) => {
     event.preventDefault();
 
     try {
       // API call to get location data
-      let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&limit=1&format=json&city=${this.state.city}&state=${this.state.state}`
+      let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&limit=1&format=json&q=${this.state.city}`
       let locationData = await axios.get(url)
 
       // Save data to state
@@ -55,11 +56,37 @@ class App extends React.Component {
         cardDisplay: 'flex',
         error: false,
       })
+
+      // Get Weather Data
+      this.getWeatherData(locationData.data[0].lat, locationData.data[0].lon);
+
     } catch (error) {
       this.setState({
         error: true,
-        errorMessage: error.message,
+        errorMessage: 'Map error: ' + error.message,
         cardDisplay: 'none'
+      })
+    }
+  }
+
+  getWeatherData = async (lat, lon) => {
+    try {
+      let url = `http://localhost:3001/weather?city=${this.state.city}&lat=${lat}&lon=${lon}`;
+      console.log(url);
+      let data = await axios.get(url);
+      console.log(data.data[0]);
+      this.setState({
+        weatherData0: data.data[0],
+        weatherData1: data.data[1],
+        weatherData2: data.data[2],
+        weatherCardDisplay: '',
+        weatherDataValid: true,
+        weatherErrorMessage: '',
+      })
+    } catch (error) {
+      this.setState({
+        weatherDataValid: false,
+        weatherErrorMessage: 'Weather error: ' + error.message,
       })
     }
   }
@@ -77,20 +104,16 @@ class App extends React.Component {
               <Form.Control type="text" placeholder="Enter city" onInput={this.handleCityInput} />
             </Form.Group>
 
-            <Form.Group controlId="state">
-              <Form.Label>State</Form.Label>
-              <Form.Control type="text" placeholder="Enter state" onInput={this.handleStateInput} />
-            </Form.Group>
-
             <Button onClick={this.handleCityData} variant="primary">Explore!</Button>
             {
               this.state.error
                 ? <h2>{this.state.errorMessage}</h2>
                 : null
             }
+            <h2>{this.state.weatherErrorMessage}</h2>
+
+
           </Form>
-
-
 
           <Card style={{ display: this.state.cardDisplay }} bg='secondary' text='light'>
             <Card.Body>
@@ -100,7 +123,18 @@ class App extends React.Component {
             </Card.Body>
             <Card.Img variant="bottom" src={this.state.mapURL} />
           </Card>
+
+          {
+            this.state.weatherDataValid
+              ? <Weather
+                weatherData0={this.state.weatherData0}
+                weatherData1={this.state.weatherData1}
+                weatherData2={this.state.weatherData2}
+              />
+              : null
+          }
         </main>
+
       </>
     );
   }
