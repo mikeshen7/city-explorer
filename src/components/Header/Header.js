@@ -1,7 +1,6 @@
 import React from 'react';
-import './reset.css';
+import '../../components/reset.css';
 import './Header.css';
-
 
 class Header extends React.Component {
 
