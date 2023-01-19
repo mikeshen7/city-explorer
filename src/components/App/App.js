@@ -2,11 +2,15 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
 import Header from '../Header/Header';
+import UserForm from '../UserForm/UserForm';
+import Location from '../Location/Location';
 import Weather from '../Weather/Weather';
+import Movies from '../Movies/Movies';
+
+// ********* Global Variables
+let lat;
+let lon;
 
 class App extends React.Component {
   constructor(props) {
@@ -14,82 +18,109 @@ class App extends React.Component {
     this.state = {
       siteName: "City Explorer",
       city: '',
-      cityData: [],
-      display_name: '',
-      lattitude: '',
-      longitude: '',
-      mapURL: '',
-      cardDisplay: 'none',
 
-      weatherData0: '',
-      weatherData1: '',
-      weatherData2: '',
-      weatherDataValid: false,
-      weatherErrorMessage: '',
+      locationData: {
+        show: 'none',
+      },
 
-      error: false,
-      errorMessage: '',
+      weatherData: {
+        forecast: [],
+        show: 'none',
+      },
+
+      movieData: {
+        movies: [],
+        show: 'none',
+      },
     }
   }
 
-  handleCityInput = (event) => {
-    this.setState({
-      city: event.target.value,
-    })
+  handleSubmit = async (event, city) => {
+    event.preventDefault();
+    await this.getLocation(city);
+    this.getWeather();
+    await this.getMovies(city);
   }
 
-  handleCityData = async (event) => {
-    event.preventDefault();
-
+  getLocation = async (city) => {
     try {
       // API call to get location data
-      let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&limit=1&format=json&q=${this.state.city}`
-      let locationData = await axios.get(url)
-
-      // Save data to state
-      this.setState({
-        cityData: locationData.data[0],
-        display_name: locationData.data[0].display_name,
-        lattitude: locationData.data[0].lat,
-        longitude: locationData.data[0].lon,
-        mapURL: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${locationData.data[0].lat},${locationData.data[0].lon}&zoom=13`,
-        cardDisplay: 'flex',
-        error: false,
-      })
-
-      // Get Weather Data
-      this.getWeatherData(locationData.data[0].lat, locationData.data[0].lon);
-
-    } catch (error) {
-      this.setState({
-        error: true,
-        errorMessage: 'Map error: ' + error.message,
-        cardDisplay: 'none'
-      })
-    }
-  }
-
-  getWeatherData = async (lat, lon) => {
-    try {
-      let url = `http://localhost:3001/weather?city=${this.state.city}&lat=${lat}&lon=${lon}`;
+      let url = `https://city-explorer-api-mike.onrender.com/location?city=${city}`
       console.log(url);
-      let data = await axios.get(url);
-      console.log(data.data[0]);
+      let tempData = await axios.get(url);
+      tempData = tempData.data;
       this.setState({
-        weatherData0: data.data[0],
-        weatherData1: data.data[1],
-        weatherData2: data.data[2],
-        weatherCardDisplay: '',
-        weatherDataValid: true,
-        weatherErrorMessage: '',
+        locationData: tempData,
       })
+
+      // save to global variable so I can use it elsewhere
+      lat = tempData.lat;
+      lon = tempData.lon;
+
     } catch (error) {
       this.setState({
-        weatherDataValid: false,
-        weatherErrorMessage: 'Weather error: ' + error.message,
+        locationData: {
+          lat: '',
+          lon: '',
+          display_name: '',
+          mapUrl: '',
+          show: 'none',
+          error: true,
+          errorMessage: error.message,
+          errorCode: error.response.status,
+        },
+      })
+      lat = '';
+      lon = '';
+    }
+  }
+
+  getWeather = async () => {
+    try {
+      // API call to get location data
+      let url = `https://city-explorer-api-mike.onrender.com/weather?lat=${lat}&lon=${lon}`
+      let tempData = await axios.get(url);
+      this.setState({
+        weatherData: tempData.data,
+      })
+
+    } catch (error) {
+      this.setState({
+        weatherData: {
+          forecast: [],
+          show: 'none',
+          error: true,
+          errorMessage: error.message,
+          errorCode: error.response.status,
+        },
       })
     }
   }
+
+  getMovies = async (city) => {
+    try {
+      // API call to get location data
+      let url = `https://city-explorer-api-mike.onrender.com/movies?city=${city}`;
+      let tempData = await axios.get(url);
+      tempData = tempData.data;
+      this.setState({
+        movieData: tempData,
+      })
+      console.log(tempData);
+
+    } catch (error) {
+      this.setState({
+        movieData: {
+          movies: [],
+          show: 'none',
+          error: true,
+          errorMessage: error.message,
+          errorCode: error.response.status,
+        },
+      })
+    }
+  }
+
 
   render() {
     return (
@@ -98,41 +129,26 @@ class App extends React.Component {
           siteName={this.state.siteName}
         />
         <main>
-          <Form onSubmit={this.handleCityData} className="form">
-            <Form.Group controlId="city">
-              <Form.Label>City</Form.Label>
-              <Form.Control type="text" placeholder="Enter city" onInput={this.handleCityInput} />
-            </Form.Group>
+          <UserForm handleSubmit={this.handleSubmit} />
 
-            <Button onClick={this.handleCityData} variant="primary">Explore!</Button>
-            {
-              this.state.error
-                ? <h2>{this.state.errorMessage}</h2>
-                : null
-            }
-            <h2>{this.state.weatherErrorMessage}</h2>
-
-
-          </Form>
-
-          <Card style={{ display: this.state.cardDisplay }} bg='secondary' text='light'>
-            <Card.Body>
-              <Card.Title>{this.state.display_name}</Card.Title>
-              <Card.Text> Longitude: {this.state.lattitude}</Card.Text>
-              <Card.Text>Latitude: {this.state.longitude}</Card.Text>
-            </Card.Body>
-            <Card.Img variant="bottom" src={this.state.mapURL} />
-          </Card>
-
-          {
-            this.state.weatherDataValid
-              ? <Weather
-                weatherData0={this.state.weatherData0}
-                weatherData1={this.state.weatherData1}
-                weatherData2={this.state.weatherData2}
-              />
+          <div className='errors'>
+            {this.state.locationData.error
+              ? <h2> Location Error {this.state.locationData.errorMessage}</h2>
               : null
-          }
+            }
+            {this.state.weatherData.error
+              ? <h2> Weather Error {this.state.weatherData.errorMessage}</h2>
+              : null
+            }
+            {this.state.movieData.error
+              ? <h2> Movie Error {this.state.movieData.errorMessage}</h2>
+              : null
+            }
+          </div>
+
+          <Location locationData={this.state.locationData} />
+          <Weather weatherData={this.state.weatherData} />
+          <Movies movieData={this.state.movieData} />
         </main>
 
       </>
@@ -141,3 +157,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+//           

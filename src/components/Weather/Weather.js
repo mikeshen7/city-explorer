@@ -1,22 +1,11 @@
 import React from 'react';
-import '../../components/reset.css';
-import './Weather.css';
 import Table from 'react-bootstrap/Table';
 
 class Weather extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      weatherTitle: 'Weather Title',
-      weatherText: 'Weather Text',
-      weatherImg: 'https://via.placeholder.com/150',
-    }
-  }
-
   render() {
     return (
       <>
-        <Table bordered hover  size='sm'>
+        <Table bordered hover size='sm' style={{ display: this.props.weatherData.show }}>
           <thead>
             <tr>
               <th>Date</th>
@@ -24,18 +13,14 @@ class Weather extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{this.props.weatherData0.date}</td>
-              <td>{this.props.weatherData0.description}</td>
-            </tr>
-            <tr>
-              <td>{this.props.weatherData1.date}</td>
-              <td>{this.props.weatherData1.description}</td>
-            </tr>
-            <tr>
-              <td>{this.props.weatherData2.date}</td>
-              <td>{this.props.weatherData2.description}</td>
-            </tr>
+            {this.props.weatherData.forecast.map((element, index) => {
+              return (
+                <tr key={index}>
+                  <td>{element.date}</td>
+                  <td>{element.description}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
       </>
