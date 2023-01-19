@@ -7,6 +7,7 @@ import UserForm from '../UserForm/UserForm';
 import Location from '../Location/Location';
 import Weather from '../Weather/Weather';
 import Movies from '../Movies/Movies';
+import Errors from '../Errors/Errors';
 
 // ********* Global Variables
 let lat;
@@ -21,16 +22,22 @@ class App extends React.Component {
 
       locationData: {
         show: 'none',
+        error: false,
+        errorMessage: '',
       },
 
       weatherData: {
         forecast: [],
         show: 'none',
+        error: false,
+        errorMessage: '',
       },
 
       movieData: {
         movies: [],
         show: 'none',
+        error: false,
+        errorMessage: '',
       },
     }
   }
@@ -46,7 +53,6 @@ class App extends React.Component {
     try {
       // API call to get location data
       let url = `${process.env.REACT_APP_SERVER}/location?city=${city}`
-      console.log(url);
       let tempData = await axios.get(url);
       tempData = tempData.data;
       this.setState({
@@ -106,7 +112,6 @@ class App extends React.Component {
       this.setState({
         movieData: tempData,
       })
-      console.log(tempData);
 
     } catch (error) {
       this.setState({
@@ -121,7 +126,6 @@ class App extends React.Component {
     }
   }
 
-
   render() {
     return (
       <>
@@ -131,31 +135,20 @@ class App extends React.Component {
         <main>
           <UserForm handleSubmit={this.handleSubmit} />
 
-          <div className='errors'>
-            {this.state.locationData.error
-              ? <h2> Location Error {this.state.locationData.errorMessage}</h2>
-              : null
-            }
-            {this.state.weatherData.error
-              ? <h2> Weather Error {this.state.weatherData.errorMessage}</h2>
-              : null
-            }
-            {this.state.movieData.error
-              ? <h2> Movie Error {this.state.movieData.errorMessage}</h2>
-              : null
-            }
-          </div>
+          <Errors
+            locationData={this.state.locationData}
+            weatherData={this.state.weatherData}
+            movieData={this.state.movieData}
+          />
 
           <Location locationData={this.state.locationData} />
           <Weather weatherData={this.state.weatherData} />
           <Movies movieData={this.state.movieData} />
         </main>
-
       </>
     );
   }
 }
 
 export default App;
-
-//           
+     

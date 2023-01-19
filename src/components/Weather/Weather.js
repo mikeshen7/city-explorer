@@ -1,5 +1,6 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import WeatherDay from './WeatherDay';
 
 class Weather extends React.Component {
   render() {
@@ -15,10 +16,11 @@ class Weather extends React.Component {
           <tbody>
             {this.props.weatherData.forecast.map((element, index) => {
               return (
-                <tr key={index}>
-                  <td>{element.date}</td>
-                  <td>{element.description}</td>
-                </tr>
+                <WeatherDay
+                  key={index}
+                  index={index}
+                  element={element}
+                />
               )
             })}
           </tbody>
