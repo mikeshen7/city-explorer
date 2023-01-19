@@ -27,17 +27,29 @@ main {
 .card {
   width: 75%;
   margin: auto;
-  margin-top:30px;
+  margin-top: 30px;
 }
 
 .table {
   width: 75%;
   background-color: #495B73;
-  margin:auto;
-  margin-top:30px;
+  margin: auto;
+  margin-top: 30px;
 }
 
 th,
 td {
   color: #F2F2F2;
+}
+
+.errors {
+  background-color: #495B73;
+  width: 75%;
+  margin: auto;
+  color: red;
+}
+
+.carousel-item img {
+  margin:auto;
+
 }
