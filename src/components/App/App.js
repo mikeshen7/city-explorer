@@ -45,7 +45,7 @@ class App extends React.Component {
   getLocation = async (city) => {
     try {
       // API call to get location data
-      let url = `https://city-explorer-api-mike.onrender.com/location?city=${city}`
+      let url = `${process.env.REACT_APP_SERVER}/location?city=${city}`
       console.log(url);
       let tempData = await axios.get(url);
       tempData = tempData.data;
@@ -78,7 +78,7 @@ class App extends React.Component {
   getWeather = async () => {
     try {
       // API call to get location data
-      let url = `https://city-explorer-api-mike.onrender.com/weather?lat=${lat}&lon=${lon}`
+      let url = `${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`
       let tempData = await axios.get(url);
       this.setState({
         weatherData: tempData.data,
@@ -100,7 +100,7 @@ class App extends React.Component {
   getMovies = async (city) => {
     try {
       // API call to get location data
-      let url = `https://city-explorer-api-mike.onrender.com/movies?city=${city}`;
+      let url = `${process.env.REACT_APP_SERVER}/movies?city=${city}`;
       let tempData = await axios.get(url);
       tempData = tempData.data;
       this.setState({
