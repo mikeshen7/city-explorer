@@ -1,7 +1,7 @@
 # Project Name
 
 **Author**: Mike Shen
-**Version**: 1.06.01 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 3.00.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
 
@@ -36,6 +36,7 @@ Uses LocationIQ API
 2023-01-16 9:30AM initial setup of site
 2023-01-16 1:00PM added location API call
 2023-01-16 2:45PM v1.06.01 final commit for lab 06.
+2023-01-19 2:35 refactored to componentize
 
 ## Credit and Collaborations
 
@@ -74,3 +75,13 @@ Start time: 2:15PM
 Finish time: 2:31PM
 
 Actual time needed to complete: 16 min
+
+## Name of feature: Refactor
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 1:30PM
+
+Finish time: 2:35PM
+
+Actual time needed to complete: 1 hr 5 minutes
