@@ -7,6 +7,7 @@ import UserForm from '../UserForm/UserForm';
 import Location from '../Location/Location';
 import Weather from '../Weather/Weather';
 import Movies from '../Movies/Movies';
+import Restaurants from '../Restaurants/Restaurants';
 import Errors from '../Errors/Errors';
 
 // ********* Global Variables
@@ -39,6 +40,13 @@ class App extends React.Component {
         error: false,
         errorMessage: '',
       },
+
+      yelpData: {
+        restaurants: [],
+        show: 'none',
+        error: false,
+        errorMessage: '',
+      },
     }
   }
 
@@ -47,6 +55,7 @@ class App extends React.Component {
     await this.getLocation(city);
     this.getWeather();
     await this.getMovies(city);
+    this.getRestaurants(lat, lon);
   }
 
   getLocation = async (city) => {
@@ -126,6 +135,29 @@ class App extends React.Component {
     }
   }
 
+  getRestaurants = async (lat, lon) => {
+    try {
+      // API call to get location data
+      let url = `${process.env.REACT_APP_SERVER}/yelp?lat=${lat}&lon=${lon}`;
+      let tempData = await axios.get(url);
+      tempData = tempData.data;
+      this.setState({
+        yelpData: tempData,
+      })
+
+    } catch (error) {
+      this.setState({
+        yelpData: {
+          restaurants: [],
+          show: 'none',
+          error: true,
+          errorMessage: error.message,
+          errorCode: error.response.status,
+        },
+      })
+    }
+  }
+
   render() {
     return (
       <>
@@ -139,11 +171,13 @@ class App extends React.Component {
             locationData={this.state.locationData}
             weatherData={this.state.weatherData}
             movieData={this.state.movieData}
+            yelpData={this.state.yelpData}
           />
 
           <Location locationData={this.state.locationData} />
           <Weather weatherData={this.state.weatherData} />
           <Movies movieData={this.state.movieData} />
+          <Restaurants yelpData={this.state.yelpData} />
         </main>
       </>
     );
